@@ -1,0 +1,28 @@
+---
+- hosts: chewbacca
+  become: yes
+  tasks:
+  - name: Install PostgreSQL server
+    become: yes
+    yum: name=postgresql-server state=present
+  - name: Install python-psycopg2
+    become: yes
+    yum: name=python3-psycopg2 state=present
+  - name: PostgreSQL Initialize
+    command: /usr/bin/postgresql-setup initdb
+             creates=/var/lib/pgsql/data/postgresql.conf
+  - name: Set trust
+    lineinfile:
+      path: /var/lib/pgsql/data/pg_hba.conf
+      regexp: '^local.*peer$'
+      line: 'local      all             all                             trust'
+  - name: Enable Service
+    service: name=postgresql.service enabled=yes
+  - name: Start Service
+    service: name=postgresql.service state=started
+  - name: Create Database (project1)
+    become_user: postgres
+    postgresql_db: name=project1 state=present
+  - name: Create DB user
+    become_user: postgres
+    postgresql_user: db=project1 name=dbadmin priv=ALL password=secret
