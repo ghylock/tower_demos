@@ -1,5 +1,5 @@
 ---
-- hosts: chewbacca
+- hosts: test
   become: yes
   tasks:
   - name: Install PostgreSQL server
