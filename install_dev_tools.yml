@@ -2,13 +2,13 @@
 - hosts: test
   become: yes
   tasks:
-  - name: ensure a list of packages installed
-    yum:
-      name: "{{ packages }}"
-    vars:
-      packages:
-      - httpd
-      - httpd-tools
-      - java-1.8.0-openjdk.x86_64
-      - maven.noarch
-      - git            
+  - name: install Apache
+    yum: name=httpd state=present
+  - name: install httpd tools
+    yum: name=httpd-tools state=present
+  - name: install git
+    yum: name=git state=present
+  - name: install jdk
+    yum: name=java-1.8.0-openjdk.x86_64 state=present
+  - name: install maven
+    yum: name=maven.noarch state=present
