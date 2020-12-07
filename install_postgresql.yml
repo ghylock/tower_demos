@@ -1,5 +1,5 @@
 ---
-- hosts: test
+- hosts: db
   become: yes
   tasks:
   - name: Install PostgreSQL server
