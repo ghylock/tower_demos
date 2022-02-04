@@ -1,5 +1,5 @@
 ---
-- hosts: dev
+- hosts: all
 - tasks:
   - name: ping hosts
     ping:
