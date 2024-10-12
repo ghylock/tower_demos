@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Run container
+    containers.podman.podman_container:
+    name: container
+    image: quay.io/bitnami/wildfly
+    state: started
